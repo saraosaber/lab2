@@ -3,7 +3,7 @@ import React from "react"
 export default function SaladCheckbox({x, i, handleChange, state}) {
 
   return (
-    <React.Fragment key={i}>
+    <div className="col-md-3 padding" key={i}>
       <input
         type="checkbox"
         id={x}
@@ -13,6 +13,6 @@ export default function SaladCheckbox({x, i, handleChange, state}) {
       />
       <label className="pl-1" htmlFor={x}>{x}</label>
       <br />
-    </React.Fragment>
+    </div>
   )
 }

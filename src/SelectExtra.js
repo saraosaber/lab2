@@ -15,7 +15,7 @@ export default function SelectIngredient({options, name, state, stateSetter}) {
   }
 
   return (
-    <div className="container py-4">
+    <div className="container-fluid py-4 row" >
       {options.map((x,i) => 
         <SaladCheckbox x={x} i={i} handleChange={handleChange} state={state[x]}></SaladCheckbox>
       )}
