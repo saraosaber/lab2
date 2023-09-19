@@ -1,33 +1,65 @@
 import React, { useState, useMemo } from 'react';
+import inventory from './inventory.mjs';
+import Salad from './Salad';
+import SelectIngredient from './SelectIngredient';
+import SelectExtra from './SelectExtra'
 
-function ComposeSalad({selectedValues}) {
-  /*const foundations = useMemo(() => {return Object.keys(props.inventory).filter(name => props.inventory[name].foundation);}, [props.inventory]);
-  const [foundation, setFoundation] = useState('Pasta');
-  const extras = useMemo(() => {return Object.keys(props.inventory).filter(name => props.inventory[name].extra);}, [props.inventory]);
-  const [extra, setExtra] = useState({ Bacon: true, Fetaost: true });
-  const proteins = useMemo(() => {return Object.keys(props.inventory).filter(name => props.inventory[name].protein);}, [props.inventory]);
-  const [protein, setProtein] = useState('Kycklingfilé');
-  const dressings = useMemo(() => {return Object.keys(props.inventory).filter(name => props.inventory[name].dressing);}, [props.inventory]);
-  const [dressing, setDressing] = useState('Kycklingfilé');*/
-
-
-  function handleSubmit(e) {
-    console.log("you clicked submit");
-    //console.log(document.forms["form"]["basVal"].value);
-  }
+  function ComposeSalad({inventory, setSalads, salad}) {
+    const foundations = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].foundation);}, [inventory]);
+    const [foundation, setFoundation] = useState('Pasta');
+    const extras = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].extra);}, [inventory]);
+    const [extra, setExtra] = useState({ Bacon: true, Fetaost: true });
+    const proteins = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].protein);}, [inventory]);
+    const [protein, setProtein] = useState('Kycklingfilé');
+    const dressings = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].dressing);}, [inventory]);
+    const [dressing, setDressing] = useState('Kimchimayo'); 
 
 
-  return (
-    <div>
-      <h1>Varukorg</h1>
-      <ul>
-          <li>Foundation: {selectedValues.foundation}</li>
-          <li>Protein: {selectedValues.protein}</li>
-          <li>Extras: {Object.keys(selectedValues.extras).filter(extra => selectedValues.extras[extra]).join(', ')}</li>
-          <li>Dressing: {selectedValues.dressing}</li>
-        </ul>
-    </div>
+    async function handleSubmit(e) {
+      e.preventDefault();
+      createSalad(foundation, protein, extra, dressing);
+    }
   
-  );
+    function createSalad(foundation, protein, extra, dressing) {
+      let newSalad = new Salad().add('foundation', foundation)
+                            .add('protein', protein)
+                            .add('extra', extra)
+                            .add('dressing', dressing);
+      let allSalads = [...salad, newSalad]
+      setSalads(allSalads);               
+    }
+
+
+    return (
+      <form name="form" key="salladForm">
+        <SelectIngredient options={foundations} name={"bas"} state={foundation} stateSetter={setFoundation}></SelectIngredient>
+        <SelectIngredient options={proteins} name={"protein"} state={protein} stateSetter={setProtein}></SelectIngredient>
+  
+        <br></br>
+        <SelectExtra options={extras} name={"Tillbehör"} state={extra} stateSetter={setExtra}></SelectExtra>
+  
+        <SelectIngredient options={dressings} name={"dressing"} state={dressing} stateSetter={setDressing}></SelectIngredient>
+  
+        <br />
+        <br />
+        <button onClick={handleSubmit} >Lägg i varukorg</button>
+      </form>
+  )
 }
-export default ComposeSalad;
+  
+  export default ComposeSalad;
+
+  /*<h2 key="extraHeader">Välj tillbehör:</h2>
+        {extras.map((x, i) =>
+          <React.Fragment key={i}>
+            <input
+              type="checkbox"
+              id={x}
+              name="extra"
+              onChange={handleChange}
+              checked={extra[x] || false} 
+            />
+            <label htmlFor={x}>{x}</label>
+            <br />
+          </React.Fragment>
+        )}*/
