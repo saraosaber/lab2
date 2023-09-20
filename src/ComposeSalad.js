@@ -8,7 +8,7 @@ import SelectExtra from './SelectExtra'
     const foundations = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].foundation);}, [inventory]);
     const [foundation, setFoundation] = useState('Sallad');
     const extras = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].extra);}, [inventory]);
-    const [extra, setExtra] = useState({ Bacon: true, Fetaost: true });
+    const [extra, setExtra] = useState({ });
     const proteins = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].protein);}, [inventory]);
     const [protein, setProtein] = useState('Kycklingfilé');
     const dressings = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].dressing);}, [inventory]);
@@ -18,6 +18,10 @@ import SelectExtra from './SelectExtra'
     async function handleSubmit(e) {
       e.preventDefault();
       createSalad(foundation, protein, extra, dressing);
+      setFoundation("Sallad");
+      setProtein("Kycklingfilé");
+      setExtra("");
+      setDressing("Ceasardressing")
     }
   
     function createSalad(foundation, protein, extra, dressing) {
@@ -48,18 +52,3 @@ import SelectExtra from './SelectExtra'
 }
   
   export default ComposeSalad;
-
-  /*<h2 key="extraHeader">Välj tillbehör:</h2>
-        {extras.map((x, i) =>
-          <React.Fragment key={i}>
-            <input
-              type="checkbox"
-              id={x}
-              name="extra"
-              onChange={handleChange}
-              checked={extra[x] || false} 
-            />
-            <label htmlFor={x}>{x}</label>
-            <br />
-          </React.Fragment>
-        )}*/
