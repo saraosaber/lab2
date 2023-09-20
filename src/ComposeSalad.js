@@ -6,13 +6,13 @@ import SelectExtra from './SelectExtra'
 
   function ComposeSalad({inventory, setSalads, salad}) {
     const foundations = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].foundation);}, [inventory]);
-    const [foundation, setFoundation] = useState('Pasta');
+    const [foundation, setFoundation] = useState('Sallad');
     const extras = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].extra);}, [inventory]);
     const [extra, setExtra] = useState({ Bacon: true, Fetaost: true });
     const proteins = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].protein);}, [inventory]);
     const [protein, setProtein] = useState('Kycklingfilé');
     const dressings = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].dressing);}, [inventory]);
-    const [dressing, setDressing] = useState('Kimchimayo'); 
+    const [dressing, setDressing] = useState('Ceasardressing'); 
 
 
     async function handleSubmit(e) {

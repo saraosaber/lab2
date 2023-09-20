@@ -10,7 +10,6 @@ export default function SelectIngredient({options, name, state, stateSetter}) {
     <>
       <h2 key="basHeader">Välj {name}:</h2>
       <select key={name} name={name} onChange={handleChange} value={state}>
-        <option selected=""></option>
         {options.map((x, i) => <option key={i} value={x}>{x}</option>)}
       </select>
     </>

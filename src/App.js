@@ -11,12 +11,6 @@ function App() {
   const extras = Object.keys(inventory).filter(name => inventory[name].extra);
   const [salads, setSalads] = useState([]);
 
-
-
-  function handleSubmit(e) {
-    console.log("you clicked submit app");
-    //console.log(document.forms["form"]["basVal"].value);
-  }
   return (
     
     <div className="container py-4">

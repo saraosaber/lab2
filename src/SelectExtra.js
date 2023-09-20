@@ -1,6 +1,6 @@
 import SaladCheckbox from "./SaladCheckbox";
 
-export default function SelectIngredient({options, name, state, stateSetter}) {
+export default function SelectExtra({options, name, state, stateSetter}) {
 
   const handleChange = (e) => {
     const { name, value, type, checked, id} = e.target;
