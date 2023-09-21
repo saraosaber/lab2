@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
+import inventory from './inventory.mjs';
+
 class Salad {
   constructor(salad) {
     this.uuid = uuidv4();
@@ -31,7 +33,18 @@ class Salad {
   }
 
   getPrice () {
-    return Object.values(this.ingredients).reduce((sum, ing) => sum += ing.price, 0);
+    let sum = 0;
+    console.log(Object.keys(this.ingredients))
+    Object.keys(this.ingredients).forEach(k => {
+      if (k == 'extra') {
+        Object.keys(this.ingredients[k]).forEach(kc => {
+          sum += inventory[kc].price
+        })
+      } else {
+        sum += inventory[this.ingredients[k]].price
+      }
+    })
+    return sum
   }
 
   count(prop) {

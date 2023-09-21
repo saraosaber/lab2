@@ -1,7 +1,6 @@
 import SaladCheckbox from "./SaladCheckbox";
 
-export default function SelectExtra({options, name, state, stateSetter}) {
-
+export default function SelectExtra({extras, state, stateSetter}) {
   const handleChange = (e) => {
     const { name, value, type, checked, id} = e.target;
     let buffer = {...state}
@@ -10,30 +9,17 @@ export default function SelectExtra({options, name, state, stateSetter}) {
     } else {
       buffer[id] = true;
     }
-    console.log(buffer)
     stateSetter(buffer);
   }
 
   return (
-    <div className="container-fluid py-4 row" >
-      {options.map((x,i) => 
-        <SaladCheckbox x={x} i={i} handleChange={handleChange} state={state[x]}></SaladCheckbox>
-      )}
-    </div>
+    <>
+      <h3>Tillbehör: </h3>
+      <div className="container-fluid py-4 row">
+        {extras.map((x,i) => 
+          <SaladCheckbox key={i} x={x[0]} i={i} handleChange={handleChange} state={state[x[0]]} price={x[1].price}></SaladCheckbox>
+        )}
+      </div>
+    </>
   )
 }
-
-      /*<h2 key="extraHeader">Välj tillbehör:</h2>
-        {extras.map((x, i) =>
-          <React.Fragment key={i}>
-            <input
-              type="checkbox"
-              id={x}
-              name="extra"
-              onChange={handleChange}
-              checked={extra[x] || false} 
-            />
-            <label htmlFor={x}>{x}</label>
-            <br />
-          </React.Fragment>
-      )}*/
