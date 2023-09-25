@@ -1,27 +1,30 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import inventory from './inventory.mjs';
 import Salad from './Salad';
 import SelectIngredient from './SelectIngredient';
 import SelectExtra from './SelectExtra'
 
-  function ComposeSalad({inventory, setSalads, salad}) {
-    const foundations = useMemo(() => {return Object.entries(inventory).filter(name => inventory[name[0]].foundation);}, [inventory]);
-    const [foundation, setFoundation] = useState('Sallad');
-    //const extras = useMemo(() => {return Object.keys(inventory).filter(name => inventory[name].extra);}, [inventory]);
-    const extras = useMemo(() => {return Object.entries(inventory).filter(name => inventory[name[0]].extra);}, [inventory]);
+  function ComposeSalad({setSalads, salads}) {
+    const foundations = Object.entries(inventory).filter(name => inventory[name[0]].foundation)
+    const [foundation, setFoundation] = useState('');
+    const extras = Object.entries(inventory).filter(name => inventory[name[0]].extra)
     const [extra, setExtra] = useState({});
-    const proteins = useMemo(() => {return Object.entries(inventory).filter(name => inventory[name[0]].protein);}, [inventory]);
-    const [protein, setProtein] = useState('Kycklingfilé');
-    const dressings = useMemo(() => {return Object.entries(inventory).filter(name => inventory[name[0]].dressing);}, [inventory]);
-    const [dressing, setDressing] = useState('Ceasardressing');
+    const proteins = Object.entries(inventory).filter(name => inventory[name[0]].protein)
+    const [protein, setProtein] = useState('');
+    const dressings = Object.entries(inventory).filter(name => inventory[name[0]].dressing)
+    const [dressing, setDressing] = useState('');
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
       e.preventDefault();
-      createSalad(foundation, protein, extra, dressing);
-      setFoundation("Sallad");
-      setProtein("Kycklingfilé");
-      setExtra("");
-      setDressing("Ceasardressing")
+      e.target.classList.add("was-validated");
+      if(e.target.checkValidity() && (Object.keys(extra).length >= 3)) {
+        createSalad(foundation, protein, extra, dressing);
+        setFoundation("");
+        setProtein("");
+        setExtra("");
+        setDressing(""); 
+        e.target.classList.remove("was-validated");
+      }
     }
   
     function createSalad(foundation, protein, extra, dressing) {
@@ -29,26 +32,23 @@ import SelectExtra from './SelectExtra'
                             .add('protein', protein)
                             .add('extra', extra)
                             .add('dressing', dressing);
-      let allSalads = [...salad, newSalad]
+      let allSalads = [...salads, newSalad]
       setSalads(allSalads);               
     }
-
-
-
+    
     return (
-      <form name="form" key="salladForm">
-        <SelectIngredient ingredients={foundations} name={"bas"} state={foundation} stateSetter={setFoundation}></SelectIngredient>
-        <SelectIngredient ingredients={proteins} name={"protein"} state={protein} stateSetter={setProtein}></SelectIngredient>
-  
-        <br></br>
-        <SelectExtra extras={extras} state={extra} stateSetter={setExtra}></SelectExtra>
-  
-        <SelectIngredient ingredients={dressings} name={"dressing"} state={dressing} stateSetter={setDressing}></SelectIngredient>
-  
-        <br />
-        <br />
-        <button onClick={handleSubmit} >Lägg i varukorg</button>
-      </form>
+      <div className="mb-3">
+        <form name="form" key="salladForm" className="g-3 needs-validation" onSubmit={handleSubmit} noValidate>
+          <SelectIngredient ingredients={foundations} name={"bas"} state={foundation} stateSetter={setFoundation}></SelectIngredient>
+          <SelectIngredient ingredients={proteins} name={"protein"} state={protein} stateSetter={setProtein}></SelectIngredient>
+          <br></br>
+          <SelectExtra extras={extras} state={extra} stateSetter={setExtra}></SelectExtra>
+          <SelectIngredient ingredients={dressings} name={"dressing"} state={dressing} stateSetter={setDressing}></SelectIngredient>
+          <br />
+          <br />
+          <button type='submit' className="btn btn-primary" >Lägg i varukorg</button>
+        </form>
+      </div>
   )
 }
   

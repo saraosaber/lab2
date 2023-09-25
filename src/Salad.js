@@ -34,14 +34,13 @@ class Salad {
 
   getPrice () {
     let sum = 0;
-    console.log(Object.keys(this.ingredients))
-    Object.keys(this.ingredients).forEach(k => {
-      if (k == 'extra') {
-        Object.keys(this.ingredients[k]).forEach(kc => {
-          sum += inventory[kc].price
+    Object.keys(this.ingredients).forEach(i => {
+      if (i === 'extra') {
+        Object.keys(this.ingredients[i]).forEach(j => {
+          sum += inventory[j].price
         })
       } else {
-        sum += inventory[this.ingredients[k]].price
+        sum += inventory[this.ingredients[i]]?.price
       }
     })
     return sum

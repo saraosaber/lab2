@@ -2,11 +2,10 @@ import React from "react"
 
 export default function SaladCheckbox({x, i, handleChange, state, price}) {
   return (
-    <div className="col-md-3 padding" key={i}>
+    <div className="col-md-3 padding" key={x}>
       <input
         type="checkbox"
         id={x}
-        key={i}
         name="extra"
         onChange={handleChange}
         checked={state || false} 

@@ -17,9 +17,10 @@ export default function SelectExtra({extras, state, stateSetter}) {
       <h3>Tillbehör: </h3>
       <div className="container-fluid py-4 row">
         {extras.map((x,i) => 
-          <SaladCheckbox key={i} x={x[0]} i={i} handleChange={handleChange} state={state[x[0]]} price={x[1].price}></SaladCheckbox>
+          <SaladCheckbox key={x} x={x[0]} i={i} handleChange={handleChange} state={state[x[0]]} price={x[1].price}></SaladCheckbox>
         )}
       </div>
+
     </>
   )
 }

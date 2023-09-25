@@ -1,5 +1,4 @@
 export default function OrderItem({salad, i}){
-  console.log(salad.ingredients)
   return(
     <div key={salad.uuid}>
       <h4>Sallad {i+1}</h4>
