@@ -10,7 +10,7 @@ export default function SelectIngredient({ingredients, name, state, stateSetter}
     <div className="col-md-3">
       <h2 key="basHeader">Välj {name}:</h2>
       <select key={name} name={name} onChange={handleChange} value={state} className="form-select" required>
-        <option selected value="">Gör ditt val</option>
+        <option disabled value="">Gör ditt val</option>
         {ingredients.map((x, i) => <option key={i} value={x[0]}>{x[0]} {x[1].price}kr</option>)}
       </select>
       <div className="invalid-feedback">Välj {name}</div>

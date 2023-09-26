@@ -3,8 +3,9 @@ import inventory from './inventory.mjs';
 import Salad from './Salad';
 import SelectIngredient from './SelectIngredient';
 import SelectExtra from './SelectExtra'
+import { useNavigate, useOutletContext} from 'react-router-dom';
 
-  function ComposeSalad({setSalads, salads}) {
+  function ComposeSalad() {
     const foundations = Object.entries(inventory).filter(name => inventory[name[0]].foundation)
     const [foundation, setFoundation] = useState('');
     const extras = Object.entries(inventory).filter(name => inventory[name[0]].extra)
@@ -13,6 +14,8 @@ import SelectExtra from './SelectExtra'
     const [protein, setProtein] = useState('');
     const dressings = Object.entries(inventory).filter(name => inventory[name[0]].dressing)
     const [dressing, setDressing] = useState('');
+    const {salads, setSalads} = useOutletContext();
+    const navigate = useNavigate();
 
     function handleSubmit(e) {
       e.preventDefault();
@@ -32,8 +35,10 @@ import SelectExtra from './SelectExtra'
                             .add('protein', protein)
                             .add('extra', extra)
                             .add('dressing', dressing);
+      console.log(newSalad);
       let allSalads = [...salads, newSalad]
-      setSalads(allSalads);               
+      setSalads(allSalads);
+      navigate("/view-order/" + newSalad.uuid);               
     }
     
     return (

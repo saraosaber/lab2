@@ -1,9 +1,12 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.bundle.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min'
+
 import { useState } from 'react';
 import ComposeSalad from './ComposeSalad';
 import ViewOrder from './ViewOrder';
-import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, NavLink, Outlet } from 'react-router-dom';
 
 
 function App() {
@@ -16,12 +19,7 @@ function App() {
       
         <Header />
         <Navbar />
-        <Routes>  
-          <Route path="/view-order" element={<ViewOrder salads={salads} />} />
-          <Route path="/compose-salad" element={<ComposeSalad setSalads={setSalads} salads={salads}/>} />
-        </Routes>
-      
-
+        <Outlet context={{salads, setSalads}}/>
       
       <footer className="pt-3 mt-4 text-muted border-top">
         EDAF90 - webprogrammering
@@ -43,12 +41,17 @@ function Navbar() {
     return(
       <>
       <ul className="nav nav-pills">
+        <li className='nav-item'>
+          <NavLink className="nav-link" to="">
+            Hem
+          </NavLink>
+        </li>
         <li className="nav-item">
           <NavLink className="nav-link" to="/compose-salad">
             Komponera en sallad
           </NavLink>
         </li>
-        <li className='"nav-item'>
+        <li className='nav-item'>
           <NavLink className="nav-link" to="/view-order">
             Varukorg
           </NavLink>
