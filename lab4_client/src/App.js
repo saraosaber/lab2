@@ -6,12 +6,15 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 import { useState } from 'react';
 import ComposeSalad from './ComposeSalad';
 import ViewOrder from './ViewOrder';
-import { BrowserRouter as Router, Route, Routes, NavLink, Outlet } from 'react-router-dom';
+import Spinner from './Spinner';
+import { BrowserRouter as Router, Route, Routes, NavLink, Outlet, useNavigation } from 'react-router-dom';
 
 
 function App() {
   const [salads, setSalads] = useState([]);
+  const navigation = useNavigation();
 
+  const navigationInProgress = navigation.state === 'loading' || navigation.state === 'submitting';
 
   return (
 
@@ -19,7 +22,9 @@ function App() {
       
         <Header />
         <Navbar />
-        <Outlet context={{salads, setSalads}}/>
+        {navigationInProgress ? 
+        <Spinner /> :
+        <Outlet context={{salads, setSalads}}/>}
       
       <footer className="pt-3 mt-4 text-muted border-top">
         EDAF90 - webprogrammering
@@ -33,6 +38,7 @@ function Header() {
   return( 
     <header className="pb-3 mb-4 border-bottom">
       <span className="fs-4">Min egen salladsbar</span>
+
     </header>
   );
 }

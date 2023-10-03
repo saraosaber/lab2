@@ -5,11 +5,12 @@ import ViewOrder from "./ViewOrder";
 import Welcome from "./Welcome";
 import PageNotFound from "./PageNotFound";
 import Confirm from "./Confirm";
-import fetchAllIngredients from "./fetchInventory";
+
+
 
 async function inventoryLoader() {
   const inventory = {};
-  await new Promise(resolve => setTimeout(resolve, 5));
+  await new Promise(resolve => setTimeout(resolve, 500)); 
   return inventory;
 }
 
@@ -24,10 +25,12 @@ const router = createBrowserRouter([
       }, 
       {
         path: "view-order",
+        loader: inventoryLoader,
         element: <ViewOrder />,
         children: [
           {
             path: "confirm/:uuid",
+            loader: inventoryLoader,
             element: <Confirm />
           }
         ]

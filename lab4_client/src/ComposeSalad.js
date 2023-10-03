@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import inventory from './inventory.mjs';
 import Salad from './Salad';
 import SelectIngredient from './SelectIngredient';
 import SelectExtra from './SelectExtra'
@@ -17,6 +16,7 @@ import fetchIngredient from './fetchInventory';
       extras: {},
       dressings: {}
     });
+
 
     useEffect(() => {
       async function fetchIngredients() {
