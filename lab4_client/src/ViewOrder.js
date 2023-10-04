@@ -1,10 +1,16 @@
 import OrderItem from "./OrderItem"
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Outlet, useOutletContext, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Salad from "./Salad";
+
 
 export default function ViewOrder() {
-  const {salads} = useOutletContext();
+  const {salads, setSalads} = useOutletContext();
   const [orderConfirmation, setOrderConfirmation] = useState();
+  const navigate = useNavigate();
+  const [popUp, setPopUp] = useState(true);
+
+
 
   const handlePlaceOrder = async () => {
     try {
@@ -23,9 +29,12 @@ export default function ViewOrder() {
       });
   
       if (response.ok) {
+        setPopUp(false);
         const orderConfirmationData = await response.json();
         setOrderConfirmation(orderConfirmationData);
         console.log('Order Confirmation:', orderConfirmationData);
+        localStorage.setItem("salads", []);
+        setSalads([]);
       } else {
         console.error('Failed to place the order.');
       }
@@ -57,8 +66,9 @@ export default function ViewOrder() {
   return (
     
     <>
-    <Outlet />
+    {popUp && <Outlet context={{salads}}/>}
     <br />
+      
       {salads.map((salad,i) =>
         <OrderItem salad={salad} i={i} key={salad.uuid}> </OrderItem>
       )}
