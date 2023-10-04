@@ -9,7 +9,7 @@ import fetchIngredient from './fetchInventory';
 
 
 
-  function ComposeSalad() {
+  function ComposeSalad({ onOrder: handleOrder }) {
     const [inventory, setInventory] = useState({
       foundations: {},
       proteins: {},
