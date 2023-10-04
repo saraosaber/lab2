@@ -61,6 +61,7 @@ import fetchIngredient from './fetchInventory';
                             .add('dressing', dressing);
       let allSalads = [...salads, newSalad]
       setSalads(allSalads);
+      localStorage.setItem("salads", JSON.stringify(...allSalads));
       navigate("/view-order/confirm/" + newSalad.uuid);               
     }
 

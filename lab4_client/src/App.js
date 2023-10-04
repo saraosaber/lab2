@@ -1,7 +1,8 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import 'bootstrap/dist/js/bootstrap.bundle.min'
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import Salad from './Salad';
 
 import { useState } from 'react';
 import ComposeSalad from './ComposeSalad';
@@ -11,10 +12,15 @@ import { BrowserRouter as Router, Route, Routes, NavLink, Outlet, useNavigation 
 
 
 function App() {
-  const [salads, setSalads] = useState([]);
+  const tempSalad = localStorage.getItem("salads");
+  const localSalads = tempSalad ? [Salad.parse(tempSalad)] : [];
+  const [salads, setSalads] = useState(localSalads);
   const navigation = useNavigation();
 
+  
+
   const navigationInProgress = navigation.state === 'loading' || navigation.state === 'submitting';
+
 
   return (
 
